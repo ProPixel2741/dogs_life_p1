@@ -1,5 +1,5 @@
-INSERT INTO owner (owner_id, name) VALUES (1, 'Cilian');
-INSERT INTO owner (owner_id, name) VALUES (2, 'Jim');
+INSERT INTO owners (owner_id, name) VALUES (1, 'Cilian');
+INSERT INTO owners (owner_id, name) VALUES (2, 'Jim');
 
 INSERT INTO dogs (dog_id, name, age) VALUES (1, 'Jimmy', 3,1);
 INSERT INTO dogs (dog_id, name, age) VALUES (2, 'Tom', 5),1;
