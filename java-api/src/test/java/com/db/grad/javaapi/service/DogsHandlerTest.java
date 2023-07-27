@@ -6,7 +6,10 @@ import com.db.grad.javaapi.repository.DogsRepositoryStub;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import javax.validation.constraints.AssertFalse;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class DogsHandlerTest {
     private DogsRepository itsDogRepo = new DogsRepositoryStub();
@@ -26,5 +29,27 @@ public class DogsHandlerTest {
 
         int expectedResult = 1;
         assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void test_getDogsByName() {
+        DogHandler cut = new DogHandler(itsDogRepo);
+        Dog theDog = new Dog();
+        theDog.setName("Bruno");
+
+        cut.addDog(theDog);
+
+        assertEquals(theDog, cut.getDogByName("Bruno"));
+    }
+
+    @Test
+    public void return_null_when_dog_not_found_by_id(){
+        DogHandler cut = new DogHandler(itsDogRepo);
+        Dog theDog = new Dog();
+        theDog.setId(101);
+        cut.addDog(theDog);
+
+        String actualResult = cut.getDogById(102);
+        assertEquals(null,actualResult);
     }
 }
