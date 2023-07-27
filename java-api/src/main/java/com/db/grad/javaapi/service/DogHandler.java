@@ -23,14 +23,12 @@ public class DogHandler {
     }
 
     public boolean removeDog( long id ) {
-        return itsDogsRepo.delete(itsDogsRepo.findById( id ));
+        return itsDogsRepo.delete(itsDogsRepo.findById(id));
     }
 
-    /*
     public Dog getDogByName( String name ) {
-        return itsDogsRepo.findByName();
+        return itsDogsRepo.findByName( name );
     }
-    */
 
     public long updateDogDetails( Dog dog ) {
         if ( itsDogsRepo.existsById( dog.getId() ) ) {

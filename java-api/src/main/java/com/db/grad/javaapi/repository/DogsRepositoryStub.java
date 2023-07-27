@@ -30,15 +30,13 @@ public class DogsRepositoryStub implements DogsRepository {
     }
 
     @Override
-    public List<Dog> findByName(Dog aDog) {
-        ArrayList<Dog> result = new ArrayList<>();
-
-        for( Dog theDog: itsDogs)
-            if( theDog.getName().equalsIgnoreCase(aDog.getName()) ) {
-                result.add(theDog);
+    public Dog findByName( String name ) {
+        for ( Dog dog : itsDogs ) {
+            if ( dog.getName() == name ) {
+                return dog;
             }
-
-        return result;
+        }
+        return null;
     }
 
     @Override

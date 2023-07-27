@@ -81,11 +81,10 @@ class DogsRepositoryStubTest {
         cut.save( theDog );
 
         // act
-        List<Dog> actualDog = cut.findByName( expectedDog );
+        Dog actualDog = cut.findByName( "Penny" );
 
         // assert
-        assertEquals(1, actualDog.size());
-        Dog retrievedDog = actualDog.get(0);
+        Dog retrievedDog = actualDog;
         assertEquals( expectedDog.getName(), retrievedDog.getName());
         assertEquals( expectedDog.getId(), retrievedDog.getId());
     }
