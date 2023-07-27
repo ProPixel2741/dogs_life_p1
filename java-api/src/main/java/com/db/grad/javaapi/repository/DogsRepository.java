@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface DogsRepository {
     long save(Dog theDog );
-    Dog  findById( long id );
+    Dog findById(long id );
     List<Dog> findByName(Dog theDog );
     boolean delete( Dog theDog );
     long count();
