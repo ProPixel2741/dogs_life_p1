@@ -20,4 +20,8 @@ public class HeroService {
         String letterParam = letter + "%";
         return heroRepository.findHeroesNameStartingWithLetter(letterParam);
     }
+
+    public Hero saveHero(Hero hero) {
+        return heroRepository.save(hero);
+    }
 }
