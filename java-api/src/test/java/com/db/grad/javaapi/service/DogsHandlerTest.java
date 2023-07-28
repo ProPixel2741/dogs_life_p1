@@ -23,13 +23,7 @@ public class DogsHandlerTest {
         theDog.setName("Bruno");
         cut.addDog( theDog );
 
-        int expectedResult = 1;
-
-        //act
-        long actualResult = cut.getNoOfDogs();
-
-        //assert
-        assertEquals( expectedResult, actualResult );
+        assertEquals( 1, cut.getNoOfDogs() );
     }
 
     @Test
@@ -48,79 +42,160 @@ public class DogsHandlerTest {
         dog4.setName("Fluffy");
         cut.addDog( dog4 );
 
-        int expectedResult = 4;
-        long actualResult = cut.getNoOfDogs();
-
-        assertEquals( expectedResult, actualResult );
+        assertEquals( 4, cut.getNoOfDogs() );
     }
 
     @Test
-    public void getDogByName() {
+    public void add_dog_and_remove_dog_return_number_of_dogs_is_zero() {
         DogHandler cut = new DogHandler( itsDogRepo );
-        Dog dog1 = new Dog();
-        dog1.setName("Jill");
-        cut.addDog( dog1 );
-        Dog dog2 = new Dog();
-        dog2.setName("Jack");
-        cut.addDog( dog2 );
-        Dog dog3 = new Dog();
-        dog3.setName("Cooper");
-        cut.addDog( dog3 );
-        Dog dog4 = new Dog();
-        dog4.setName("Fluffy");
-        cut.addDog( dog4 );
+        Dog dog = new Dog();
+        dog.setName( "Cooper" );
+        cut.addDog( dog );
 
-        assertEquals( dog3, cut.getDogByName( "Cooper" ));
+        assertEquals( 1, cut.getNoOfDogs() );
+
+        cut.removeDog( 1 );
+
+        assertEquals( 0, cut.getNoOfDogs() );
     }
 
     @Test
-    public void getDogByIdNotNull() {
+    public void add_dog_and_remove_dog_that_does_not_exist_return_number_of_dogs_is_one() {
         DogHandler cut = new DogHandler( itsDogRepo );
-        Dog dog1 = new Dog();
-        cut.addDog( dog1 );
-        Dog dog2 = new Dog();
-        cut.addDog( dog2 );
+        Dog dog = new Dog();
+        dog.setName( "Cooper" );
+        cut.addDog( dog );
 
-        assertEquals( dog2, cut.getDogById( 2 ));
-    }
-
-    @Test
-    public void getDogByIdNull() {
-        DogHandler cut = new DogHandler( itsDogRepo );
-        Dog dog1 = new Dog();
-        cut.addDog( dog1 );
-        Dog dog2 = new Dog();
-        cut.addDog( dog2 );
-
-        assertNull(cut.getDogById( 3 ));
-    }
-
-    /*
-    @Test
-    public void updateDogDetails() {
-        DogHandler cut = new DogHandler( itsDogRepo );
-        Dog dog1 = new Dog();
-        cut.addDog( dog1 );
-        Dog dog2 = new Dog();
-        cut.addDog( dog2 );
-        cut.updateDogDetails( dog1 );
-
-        assertEquals( dog1, cut.getDogById( 2 ));
-    }
-    */
-
-    @Test
-    public void removeDog() {
-        DogHandler cut = new DogHandler( itsDogRepo );
-        Dog dog1 = new Dog();
-        cut.addDog( dog1 );
-        Dog dog2 = new Dog();
-        cut.addDog( dog2 );
-
-        assertEquals( 2, cut.getNoOfDogs() );
+        assertEquals( 1, cut.getNoOfDogs() );
 
         cut.removeDog( 2 );
 
-        assertEquals(1, cut.getNoOfDogs() );
+        assertEquals( 1, cut.getNoOfDogs() );
+    }
+
+    @Test
+    public void find_dog_by_valid_id_returns_one_dog() {
+        DogHandler cut = new DogHandler( itsDogRepo );
+        Dog dog1 = new Dog();
+        dog1.setName( "Cooper" );
+        cut.addDog( dog1 );
+        Dog dog2 = new Dog();
+        dog2.setName( "Jill" );
+        cut.addDog( dog2 );
+
+        assertEquals( 2, cut.getNoOfDogs() );
+        assertEquals( dog1, cut.getDogById( 1 ) );
+    }
+
+    @Test
+    public void find_dog_by_invalid_id_returns_null_dog() {
+        DogHandler cut = new DogHandler( itsDogRepo );
+        Dog dog1 = new Dog();
+        dog1.setName( "Cooper" );
+        cut.addDog( dog1 );
+        Dog dog2 = new Dog();
+        dog2.setName( "Jill" );
+        cut.addDog( dog2 );
+
+        assertEquals( 2, cut.getNoOfDogs() );
+        assertNull( cut.getDogById( 3 ) );
+    }
+
+    @Test
+    public void find_dog_by_name_returns_one_dog() {
+        DogHandler cut = new DogHandler( itsDogRepo );
+        Dog dog1 = new Dog();
+        dog1.setName( "Cooper" );
+        cut.addDog( dog1 );
+        Dog dog2 = new Dog();
+        dog2.setName( "Jill" );
+        cut.addDog( dog2 );
+
+        assertEquals( 2, cut.getNoOfDogs() );
+        assertEquals( dog1.getName(), cut.getDogByName( "Cooper" ) );
+    }
+
+    @Test
+    public void find_dog_by_name_returns_null_because_many_dogs_with_same_name() {
+        DogHandler cut = new DogHandler( itsDogRepo );
+        Dog dog1 = new Dog();
+        dog1.setName( "Cooper" );
+        cut.addDog( dog1 );
+        Dog dog2 = new Dog();
+        dog2.setName( "Cooper" );
+        cut.addDog( dog2 );
+
+        assertEquals( 2, cut.getNoOfDogs() );
+        assertNull( cut.getDogByName( "Cooper" ) );
+    }
+
+    @Test
+    public void find_dog_by_invalid_name_returns_null_dog() {
+        DogHandler cut = new DogHandler( itsDogRepo );
+        Dog dog1 = new Dog();
+        dog1.setName( "Cooper" );
+        cut.addDog( dog1 );
+        Dog dog2 = new Dog();
+        dog2.setName( "Jill" );
+        cut.addDog( dog2 );
+
+        assertEquals( 2, cut.getNoOfDogs() );
+        assertNull( cut.getDogByName( "Jack" ) );
+    }
+
+    @Test
+    public void update_dog_that_exists_returns_dog_id() {
+        DogHandler cut = new DogHandler( itsDogRepo );
+        Dog dog1 = new Dog();
+        dog1.setName( "Cooper" );
+        cut.addDog( dog1 );
+        Dog dog2 = new Dog();
+        dog2.setName( "Jill" );
+        cut.addDog( dog2 );
+
+        assertEquals( 2, cut.getNoOfDogs() );
+        assertEquals( 1, cut.updateDogDetails( dog1 ) );
+    }
+
+    @Test
+    public void update_dog_that_does_not_exist_returns_null() {
+        DogHandler cut = new DogHandler( itsDogRepo );
+        Dog dog1 = new Dog();
+        dog1.setName( "Cooper" );
+        cut.addDog( dog1 );
+        Dog dog2 = new Dog();
+        dog2.setName( "Jill" );
+        cut.addDog( dog2 );
+
+        assertEquals( 2, cut.getNoOfDogs() );
+        assertEquals( -1, cut.updateDogDetails( dog1 ) );
+    }
+
+    @Test
+    public void remove_dog_that_exists_returns_one_dog() {
+        DogHandler cut = new DogHandler( itsDogRepo );
+        Dog dog1 = new Dog();
+        dog1.setName( "Cooper" );
+        cut.addDog( dog1 );
+        Dog dog2 = new Dog();
+        dog2.setName( "Jill" );
+        cut.addDog( dog2 );
+
+        assertEquals( 2, cut.getNoOfDogs() );
+        assertEquals( dog2, cut.removeDog( 2 ) );
+    }
+
+    @Test
+    public void remove_dog_that_does_not_exist_returns_null() {
+        DogHandler cut = new DogHandler( itsDogRepo );
+        Dog dog1 = new Dog();
+        dog1.setName( "Cooper" );
+        cut.addDog( dog1 );
+        Dog dog2 = new Dog();
+        dog2.setName( "Jill" );
+        cut.addDog( dog2 );
+
+        assertEquals( 2, cut.getNoOfDogs() );
+        assertNull( cut.removeDog( 2 ) );
     }
 }
