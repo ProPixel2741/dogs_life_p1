@@ -12,4 +12,5 @@ public interface HeroRepository extends JpaRepository<Hero,Integer> {
     List<Hero> findTop3ByOrderByNameDesc();
     @Query(nativeQuery = true, value = "select * from heroes where name like :letter")
     List<Hero> findHeroesNameStartingWithLetter(String letter);
+
 }
