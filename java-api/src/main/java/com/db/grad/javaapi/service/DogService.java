@@ -6,59 +6,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class DogHandler implements IDogsService
+public class DogService
 {
     private DogsRepository itsDogsRepo;
 
     @Autowired
-    public DogHandler( DogsRepository dogRepo )
+    public DogService(DogsRepository dogRepo )
     {
         itsDogsRepo = dogRepo;
     }
 
-    @Override
-    public List<Dog> getAllDogs()
-    {
-        return itsDogsRepo.findAll();
-    }
-
-    @Override
-    public Dog addDog(Dog theDog)
+    public long addDog(Dog theDog)
     {
         return itsDogsRepo.save( theDog );
     }
 
-    @Override
     public long getNoOfDogs()
     {
         return itsDogsRepo.count();
     }
 
-    @Override
     public boolean removeDog(long uniqueId)
     {
         boolean result = false;
 
-        Optional<Dog> theDog = itsDogsRepo.findById(uniqueId);
-        if(theDog.isPresent())
+        Dog theDog = itsDogsRepo.findById(uniqueId);
+        if( theDog != null )
         {
-            itsDogsRepo.delete(theDog.get());
+            itsDogsRepo.delete(theDog);
             result = true;
         }
 
         return  result;
     }
 
-    @Override
     public Dog getDogById(long uniqueId)
     {
-        return itsDogsRepo.findById(uniqueId).get();
+        return itsDogsRepo.findById(uniqueId);
     }
 
-    @Override
     public Dog getDogByName(String dogsName )
     {
         Dog dogToFind = new Dog();
@@ -72,9 +60,9 @@ public class DogHandler implements IDogsService
         return result;
     }
 
-    @Override
     public Dog updateDogDetails(Dog dogToUpdate)
     {
-        return itsDogsRepo.save( dogToUpdate );
+        itsDogsRepo.save( dogToUpdate );
+        return dogToUpdate;
     }
 }

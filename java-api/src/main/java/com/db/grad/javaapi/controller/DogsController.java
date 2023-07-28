@@ -1,31 +1,25 @@
 package com.db.grad.javaapi.controller;
 
 import com.db.grad.javaapi.model.Dog;
-import com.db.grad.javaapi.service.DogHandler;
+import com.db.grad.javaapi.service.DogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1")
 @CrossOrigin(origins = "http://localhost:3000")
 public class DogsController {
-    private DogHandler dogsService;
+    private DogService dogsService;
 
     @Autowired
-    public DogsController(DogHandler ds)
+    public DogsController(DogService ds)
     {
         dogsService = ds;
-    }
-
-    @GetMapping("/dogs")
-    public List <Dog> getAllDogs() {
-        return dogsService.getAllDogs();
     }
 
     @GetMapping("/dogs/{id}")
@@ -37,7 +31,8 @@ public class DogsController {
 
     @PostMapping("/dogs")
     public Dog createDog(@Valid @RequestBody Dog dog) {
-        return dogsService.addDog(dog);
+        dogsService.addDog(dog);
+        return dog;
     }
 
     @PutMapping("/dogs/{id}")
