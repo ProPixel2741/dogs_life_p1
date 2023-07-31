@@ -1,13 +1,13 @@
 import React from 'react'
 import batman from '../images/batman.jpg'
-
-const HeroDetail = () => {
+import images from '../index.js'
+const HeroDetail = (props) => {
   return (
     <div>
-        <img src="images/batman.jpg" alt="Batman" height="250px"/>
+        <img src={images[props.info.alias.replaceAll(/\s/g,'')]} alt={props.info.name} height="250px"/>
         <p id="blue-alias">Alias: Batman</p>
-        <p class="green-class">Name: Bruce Wayne</p>
-        <button class="green-class">Like</button>
+        <p className="green-class">Name: Bruce Wayne</p>
+        <button className="green-class">Like</button>
     </div>
   )
 }
