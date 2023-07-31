@@ -1,12 +1,16 @@
-import React from 'react'
-import HeroDetail from './HeroDetail'
-
+import React from 'react';
+import HeroDetail from './HeroDetail';
+import Row from 'react-bootstrap/Row';
 const AllHeroes = () => {
-  return (
-    heroes.map(hero=>(
-    <HeroDetail info={hero} key={hero.id.toString()} />
-    ))
-  )
+    return (
+        <Row >
+          {heroes.map(hero => (
+              <div className='container' key={hero.id}>
+                <HeroDetail info={hero}/>
+              </div>
+            ))}
+        </Row>
+      )
 }
 const heroes = [{"id":1,"name":"Bruce Wayne","alias":"Batman","superpower":"Martial Arts","teamID":1},
 {"id":2,"name":"Clark Kent","alias":"Superman","superpower":"Flight","teamID":1},
