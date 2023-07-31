@@ -12,6 +12,16 @@ public class Dog
     private String name;
     private int age;
 
+    private String owner;
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
     public int getAge() {
         return age;
     }
