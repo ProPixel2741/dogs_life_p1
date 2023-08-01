@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form } from 'react-router-dom';
+import { Form, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Row from 'react-bootstrap/esm/Row';
 import { Button } from 'bootstrap';
@@ -10,6 +10,7 @@ const DogForm = () => {
   const [name, setName] = useState('');
   const [age, setAge] = useState(0);
   const [owner, setOwner] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -22,6 +23,7 @@ const DogForm = () => {
         setName('');
         setAge(0);
         setOwner('');
+        navigate("/");
       })
       .catch(err => {
         console.log(err);
@@ -31,15 +33,15 @@ const DogForm = () => {
   return (
     <Row>
       <Form>
-        <Form.Group>
+        <Form.Group className="mb-3" controlId="name">
           <Form.Label>Name: </Form.Label>
-          <Form.Control type="text" value={name} />
+          <Form.Control type="text" placeholder="Name" value={name} />
         </Form.Group>
-        <Form.Group>
+        <Form.Group className="mb-3" controlId="age">
           <Form.Label>Age: </Form.Label>
           <Form.Control type="text" value={age} />
         </Form.Group>
-        <Form.Group>
+        <Form.Group className="mb-3" controlId="owner">
           <Form.Label>Owner: </Form.Label>
           <Form.Control type="text" value={owner} />
         </Form.Group>

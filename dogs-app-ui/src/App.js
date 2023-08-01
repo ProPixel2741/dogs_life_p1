@@ -27,7 +27,7 @@ function App() {
         <Route path="/alldogs" element={<AllDogs/>} />
         <Route path="/:id" element={<DogDetail/>} />
         <Route path="/" element={<AllDogs/>} />
-        <Route path='/alldogs' element={<DogForm/>} />
+        <Route path='/adddog' element={<DogForm/>} />
       </Routes>
       </>
   );
