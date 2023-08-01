@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS dogs;
 CREATE TABLE dogs (
     id INT NOT NULL,
     name VARCHAR(250) NOT NULL,
-    age INT NOT NULL
+    age INT NOT NULL,
+    owner VARCHAR(250) NOT NULL
 );
 
