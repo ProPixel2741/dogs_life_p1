@@ -11,7 +11,7 @@ const DogDetail = () => {
     const [data, setData] = useState({});
 
     const getDogsFromAPI = () => {
-        getDogInfo()
+        getDogInfo( params )
             .then(res => {
                 setData(res.data);
             })

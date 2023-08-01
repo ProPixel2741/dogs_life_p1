@@ -6,6 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import AllDogs from './components/AllDogs';
 import { Route, Routes } from 'react-router-dom';
 import DogDetail from './components/DogDetail';
+import DogForm from './components/DogForm';
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="/alldogs">All Dogs</Nav.Link>
-              <Nav.Link href="/:id">Dog Details</Nav.Link>
+              <Nav.Link href="/adddog">Add Dog</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -26,6 +27,7 @@ function App() {
         <Route path="/alldogs" element={<AllDogs/>} />
         <Route path="/:id" element={<DogDetail/>} />
         <Route path="/" element={<AllDogs/>} />
+        <Route path='/alldogs' element={<DogForm/>} />
       </Routes>
       </>
   );

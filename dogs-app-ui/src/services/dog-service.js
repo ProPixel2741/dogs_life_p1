@@ -7,3 +7,7 @@ export function getAllDogs() {
 export function getDogInfo(id) {
     return http.get("/dogs/" + id);
 }
+
+export function addDog(dog) {
+    return http.post("/dogs", dog);
+}
