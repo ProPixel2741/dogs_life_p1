@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
+import { saveHero } from '../services/hero-service';
+import { useNavigate } from 'react-router-dom';
 
 const HeroForm = () => {
+
+    const navigate = useNavigate();
+
     const [alias, setAlias] = useState('');
     const [name, setName] = useState('');
     const [ability, setAbility] = useState('');
@@ -26,12 +31,27 @@ const HeroForm = () => {
     }
     const handleSubmit =(event)=>{
         event.preventDefault();    
+        if (!name) {
+            // Handle the case when name is empty or null
+            console.error("Name is required");
+            return;
+        }
         let hero = {};
         hero.alias = alias;
         hero.name = name;
-        hero.ability = ability;
+        hero.superpower = ability;
         hero.teamID = teamID;
-        console.log(hero);
+        saveHero(hero)
+            .then((res) => {
+                setAbility("");
+                setAlias("");
+                setName("");
+                setTeamID("");
+                navigate("/")
+            })
+            .catch(err=>{
+                console.log(err);
+            })   
     }
 
     return (
