@@ -29,7 +29,7 @@ const AllDogs = () => {
         <h1>Total count is: </h1>
         <Row>
             {dogs.map(dog=>(
-                <a className="container" key={dog.id} href={'http://localhost:3000/' + dog.id}>{dog.name}</a>
+                <a className="container" key={parseInt(dog.id)} href={'http://localhost:3000/' + parseInt(dog.id)}>{dog.name}</a>
             ))}
         </Row>
     </>

@@ -24,7 +24,7 @@ function App() {
       </Navbar>
       <Routes>
         <Route path="/alldogs" element={<AllDogs/>} />
-        {/*<Route path="/:id" element={<DogDetail/>} />*/}
+        <Route path="/:id" element={<DogDetail/>} />
         <Route path="/" element={<AllDogs/>} />
       </Routes>
       </>

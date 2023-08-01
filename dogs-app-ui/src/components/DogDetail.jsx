@@ -1,7 +1,7 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
 import { useState, useEffect } from 'react'
-import { getAllDogs } from '../services/dog-service'
+import { getDogInfo } from '../services/dog-service'
 import { useParams } from 'react-router-dom'
 
 const DogDetail = () => {
@@ -11,7 +11,7 @@ const DogDetail = () => {
     const [data, setData] = useState({});
 
     const getDogsFromAPI = () => {
-        getAllDogs()
+        getDogInfo()
             .then(res => {
                 setData(res.data);
             })
@@ -29,7 +29,7 @@ const DogDetail = () => {
     return (
     <Card>
         <Card.Body>
-            <Card.Title>Name: {data.name}</Card.Title>
+            <Card.Text>Name: {data.name}</Card.Text>
             <Card.Text>Age: {data.age}</Card.Text>
             <Card.Text>Owner: {data.owner}</Card.Text>
         </Card.Body>
