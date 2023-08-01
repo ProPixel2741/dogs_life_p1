@@ -7,7 +7,3 @@ export default axios.create({
         "Content-type": "application/json"
     }
 });
-
-export function getAllHeroes(){
-    return http.get("/heroes");
-}
