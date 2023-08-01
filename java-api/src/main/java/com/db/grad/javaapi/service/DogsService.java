@@ -6,19 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class DogService
+public class DogsService
 {
-    private DogsRepository itsDogsRepo;
 
     @Autowired
-    public DogService(DogsRepository dogRepo )
+    private DogsRepository itsDogsRepo;
+
+    public List<Dog> getAllDogs()
     {
-        itsDogsRepo = dogRepo;
+        return itsDogsRepo.findAll();
     }
 
-    public long addDog(Dog theDog)
+    public Dog addDog(Dog theDog)
     {
         return itsDogsRepo.save( theDog );
     }
@@ -28,30 +30,28 @@ public class DogService
         return itsDogsRepo.count();
     }
 
-    public boolean removeDog(long uniqueId)
+    public boolean removeDog(int uniqueId)
     {
         boolean result = false;
 
-        Dog theDog = itsDogsRepo.findById(uniqueId);
-        if( theDog != null )
+        Optional<Dog> theDog = itsDogsRepo.findById(uniqueId);
+        if(theDog.isPresent())
         {
-            itsDogsRepo.delete(theDog);
+            itsDogsRepo.delete(theDog.get());
             result = true;
         }
 
         return  result;
     }
 
-    public Dog getDogById(long uniqueId)
+    public Dog getDogById(int uniqueId)
     {
-        return itsDogsRepo.findById(uniqueId);
+        return itsDogsRepo.findById(uniqueId).get();
     }
 
     public Dog getDogByName(String dogsName )
     {
-        Dog dogToFind = new Dog();
-        dogToFind.setName(dogsName);
-        List<Dog> dogs = itsDogsRepo.findByName(dogToFind);
+        List<Dog> dogs = itsDogsRepo.getByName(dogsName);
         Dog result = null;
 
         if( dogs.size() == 1)
@@ -62,7 +62,6 @@ public class DogService
 
     public Dog updateDogDetails(Dog dogToUpdate)
     {
-        itsDogsRepo.save( dogToUpdate );
-        return dogToUpdate;
+        return itsDogsRepo.save( dogToUpdate );
     }
 }

@@ -1,59 +1,50 @@
 package com.db.grad.javaapi.controller;
 
 import com.db.grad.javaapi.model.Dog;
-import com.db.grad.javaapi.service.DogService;
+import com.db.grad.javaapi.service.DogsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins="http://localhost:3000")
 public class DogsController {
-    private DogService dogsService;
+
 
     @Autowired
-    public DogsController(DogService ds)
-    {
-        dogsService = ds;
+    DogsService dogsService;
+
+    @GetMapping("/status")
+    public String status() {
+        return "Service is up and running!";
+    }
+    @GetMapping("/dogs")
+    public List<Dog> getAllDogs() {
+        return dogsService.getAllDogs();
+    }
+
+    @GetMapping("/dogs/count")
+    public long getDogCount() {
+        return dogsService.getNoOfDogs();
     }
 
     @GetMapping("/dogs/{id}")
-    public ResponseEntity < Dog > getEmployeeById(@PathVariable(value = "id") Long id)
-            throws Exception {
-        Dog dogs = dogsService.getDogById(id);
-        return ResponseEntity.ok().body(dogs);
+    public Dog getDog(@PathVariable int id) {
+        return dogsService.getDogById(id);
     }
 
+    @GetMapping("/dogs/name/{name}")
+    public Dog getDogByName(@PathVariable String name) {
+        return dogsService.getDogByName(name);
+    }
     @PostMapping("/dogs")
-    public Dog createDog(@Valid @RequestBody Dog dog) {
-        dogsService.addDog(dog);
-        return dog;
-    }
-
-    @PutMapping("/dogs/{id}")
-    public ResponseEntity < Dog > updateDog(@PathVariable(value = "id") Long id,
-                                            @Valid @RequestBody Dog dogDetails) throws Exception {
-
-        final Dog updatedDogs = dogsService.updateDogDetails(dogDetails);
-        return ResponseEntity.ok(updatedDogs);
-    }
-
-    @DeleteMapping("/dogs/{id}")
-    public Map < String, Boolean > deleteDog(@PathVariable(value = "id") Long id)
-            throws Exception {
-        boolean removed = dogsService.removeDog(id);
-
-        Map < String, Boolean > response = new HashMap <>();
-        if( removed )
-            response.put("deleted", Boolean.TRUE);
+    public HttpStatus saveNewDog(@RequestBody Dog dog) {
+        Dog result = dogsService.addDog(dog);
+        if (result == null)
+            return HttpStatus.PRECONDITION_FAILED;
         else
-            response.put("deleted", Boolean.FALSE);
-
-        return response;
+            return HttpStatus.CREATED;
     }
 }
