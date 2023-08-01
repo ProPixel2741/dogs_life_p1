@@ -17,5 +17,5 @@ const HeroDetail = (props) => {
       </Card>
     )
   }
-
+  
 export default HeroDetail
